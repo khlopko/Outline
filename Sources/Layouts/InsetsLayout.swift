@@ -24,7 +24,7 @@ public struct InsetLayout : Layout {
     }
 
     public func calculateSize(in rect: CGRect) -> CGSize {
-        rect.inset(by: insets).size
+        child.calculateSize(in: rect.inset(by: insets))
     }
 
 }
