@@ -19,6 +19,7 @@ public struct InsetLayout : Layout {
         self.insets = Insets(top: dy, left: dx, bottom: dy, right: dx)
     }
 
+    @discardableResult
     public mutating func layout(in rect: CGRect) -> CGRect {
         child.layout(in: rect.inset(by: insets))
     }

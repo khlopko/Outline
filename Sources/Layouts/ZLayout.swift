@@ -12,6 +12,7 @@ public struct ZLayout: Layout {
         self.children = children
     }
 
+    @discardableResult
     public mutating func layout(in rect: CGRect) -> CGRect {
         for index in children.indices {
             children[index].layout(in: rect)

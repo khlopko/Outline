@@ -104,7 +104,6 @@ public struct StackLayout : Layout {
 
     private typealias Measurement = (point: Point, size: Size)
 
-    @discardableResult
     private mutating func layoutElements(in rect: CGRect) -> Size {
         let measurements = allMeasurements(rect: rect)
         let origin = Point(axis: axis, cgPoint: rect.origin)
