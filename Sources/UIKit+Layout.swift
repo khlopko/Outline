@@ -19,7 +19,7 @@ extension UIView : Layout {
 
 extension UILabel : TextElement {
     public var textContent: TextContent? { attributedText }
-    public var elementContentInsets: Insets { .zero }
+    var elementContentInsets: Insets = .zero
 }
 
 extension UITextView : TextElement {
