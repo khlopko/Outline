@@ -4,6 +4,10 @@ import CoreGraphics
 /// Insets abstraction for the layout.
 public struct Insets {
 
+    public static func + (lhs: Insets, rhs: Insets) -> Insets {
+        .init(top: lhs.top + rhs.top, left: lhs.left + rhs.left, bottom: lhs.bottom + rhs.bottom, right: lhs.right + rhs.right)
+    }
+
     /// Insets with the all values set to zero.
     public static let zero = Insets()
 
@@ -24,6 +28,10 @@ public struct Insets {
         self.left = left
         self.bottom = bottom
         self.right = right
+    }
+
+    public init(dx: CGFloat, dy: CGFloat) {
+        self.init(top: dy, left: dx, bottom: dy, right: dx)
     }
 
     public init(equal: CGFloat = 0) {
