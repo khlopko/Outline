@@ -26,4 +26,16 @@ final class ZLayoutTests : XCTestCase {
         XCTAssertEqual(e3.rect, parent)
     }
 
+    func testCalculateSize() {
+        // g
+        let e1 = SizedElement(size: .init(width: 100, height: 100))
+        let e2 = SizedElement(size: .init(width: 100, height: 200))
+        let layout = ZLayout(children: [e1, e2])
+        let parent = CGRect(x: 0, y: 64, width: 375, height: 812)
+        // w
+        let size = layout.calculateSize(in: parent)
+        // t
+        XCTAssertEqual(size, .init(width: 100, height: 200))
+    }
+
 }
