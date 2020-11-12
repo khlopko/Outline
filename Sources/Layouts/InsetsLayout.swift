@@ -32,8 +32,8 @@ public struct InsetLayout : Layout {
 
 extension Layout {
 
-    func inset(by insets: Insets) -> Layout { InsetLayout(child: self, insets: insets) }
+    public func inset(by insets: Insets) -> Layout { InsetLayout(child: self, insets: insets) }
 
-    func insetBy(dx: CGFloat, dy: CGFloat) -> Layout { InsetLayout(child: self, dx: dx, dy: dy) }
+    public func insetBy(dx: CGFloat, dy: CGFloat) -> Layout { InsetLayout(child: self, dx: dx, dy: dy) }
 
 }
