@@ -143,4 +143,30 @@ final class StackLayoutTests : XCTestCase {
         XCTAssertEqual(s3.rect, CGRect(x: length * 2, y: 0, width: length, height: length))
     }
 
+    func testBuilder() {
+        // g
+        let length: CGFloat = 44
+        let s1 = Element()
+        let f1 = Element()
+        let s2 = Element()
+        var layout = StackLayout(axis: .x) {
+            s1
+                .length(length)
+                .crossOffset(10)
+                .offset(5)
+            SizeLayout(child: f1)
+                .flexible(.length)
+            SizeLayout(child: s2, width: length)
+        }
+        let parent = CGRect(origin: .zero, size: CGSize(width: 375, height: length))
+        // w
+        let rect = layout.layout(in: parent)
+        // t
+        let efl = parent.width - length * 2 - 5
+        XCTAssertEqual(rect, parent)
+        XCTAssertEqual(s1.rect, CGRect(x: 5, y: 10, width: length, height: length))
+        XCTAssertEqual(f1.rect, CGRect(x: s1.rect.maxX, y: 0, width: efl, height: length))
+        XCTAssertEqual(s2.rect, CGRect(x: f1.rect.maxX, y: 0, width: length, height: length))
+    }
+
 }

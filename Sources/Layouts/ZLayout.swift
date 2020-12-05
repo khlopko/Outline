@@ -8,6 +8,10 @@ public struct ZLayout: Layout {
 
     private var children: [Child]
 
+    public init(@ZLayoutBuilder make: () -> [Child]) {
+        children = make()
+    }
+
     public init(children: [Child]) {
         self.children = children
     }

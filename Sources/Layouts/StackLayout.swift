@@ -59,6 +59,11 @@ public struct StackLayout : Layout {
         self.axis = axis
     }
 
+    public init(axis: Axis, @StackLayoutBuilder make: () -> [(_ axis: Axis) -> StackLayout.LayoutElement]) {
+        self.axis = axis
+        elements = make().map { $0(axis) }
+    }
+
     /// Add to the end of stack new element.
     ///
     /// - Parameters:
@@ -181,24 +186,24 @@ public struct StackLayout : Layout {
 
 extension StackLayout {
 
-    private struct LayoutElement : Layout, AdjustmentElement {
+    public struct LayoutElement : Layout, AdjustmentElement {
 
         private var child: Child
-        let point: Point
-        let flexible: Flexible
+        internal let point: Point
+        internal let flexible: Flexible
 
-        init(child: Child, point: Point, flexible: Flexible) {
+        internal init(child: Child, point: Point, flexible: Flexible) {
             self.child = child
             self.point = point
             self.flexible = flexible
         }
 
         @discardableResult
-        mutating func layout(in rect: CGRect) -> CGRect {
+        public mutating func layout(in rect: CGRect) -> CGRect {
             child.layout(in: rect)
         }
 
-        func calculateSize(in rect: CGRect) -> CGSize {
+        public func calculateSize(in rect: CGRect) -> CGSize {
             child.calculateSize(in: rect)
         }
 
