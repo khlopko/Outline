@@ -42,19 +42,19 @@ public struct StackLayoutBuilder {
 
 extension Layout {
 
-    func length(_ value: CGFloat) -> Block {
+    public func length(_ value: CGFloat) -> Block {
         write(value, keyPath: \Block.length)
     }
 
-    func offset(_ value: CGFloat) -> Block {
+    public func offset(_ value: CGFloat) -> Block {
         write(value, keyPath: \Block.offset)
     }
 
-    func crossOffset(_ value: CGFloat) -> Block {
+    public func crossOffset(_ value: CGFloat) -> Block {
         write(value, keyPath: \Block.crossOffset)
     }
 
-    func flexible(_ value: Flexible) -> Block {
+    public func flexible(_ value: Flexible) -> Block {
         write(value, keyPath: \Block.flexible)
     }
 
