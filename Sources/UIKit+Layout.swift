@@ -12,7 +12,7 @@ extension UIView : Layout {
     }
 
     public func calculateSize(in rect: CGRect) -> CGSize {
-        CGSize(width: min(rect.width, frame.width), height: min(rect.height, frame.height))
+        .init(width: min(rect.width, frame.width), height: min(rect.height, frame.height))
     }
 
 }
@@ -25,11 +25,7 @@ extension UILabel : TextElement {
 extension UITextView : TextElement {
     public var textContent: TextContent? { attributedText }
     public var elementContentInsets: Insets {
-        Insets(
-            top: textContainerInset.top,
-            left: textContainerInset.left,
-            bottom: textContainerInset.bottom,
-            right: textContainerInset.right)
+        .init(top: textContainerInset.top, left: textContainerInset.left, bottom: textContainerInset.bottom, right: textContainerInset.right)
     }
 }
 
@@ -67,13 +63,13 @@ extension UIButton : ButtonElement {
     }
     public var nestedImageElement: NestedImageElement? { imageView }
     public var elementContentInsets: ButtonElementInsets {
-        ButtonElementInsets(
-            title: Insets(
+        .init(
+            title: .init(
                 top: titleEdgeInsets.top,
                 left: titleEdgeInsets.left,
                 bottom: titleEdgeInsets.bottom,
                 right: titleEdgeInsets.right),
-            image: Insets(
+            image: .init(
                 top: imageEdgeInsets.top,
                 left: imageEdgeInsets.left,
                 bottom: imageEdgeInsets.bottom,

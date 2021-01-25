@@ -8,6 +8,10 @@ public struct ZLayout: Layout {
 
     private var children: [Child]
 
+    public init(@ZLayoutBuilder make: () -> [Child]) {
+        children = make()
+    }
+
     public init(children: [Child]) {
         self.children = children
     }
@@ -17,11 +21,17 @@ public struct ZLayout: Layout {
         for index in children.indices {
             children[index].layout(in: rect)
         }
-        return rect
+        return .init(origin: rect.origin, size: calculateSize(in: rect))
     }
 
     public func calculateSize(in rect: CGRect) -> CGSize {
-        rect.size
+        children
+            .map { $0.calculateSize(in: rect) }
+            .max { $0.square < $1.square } ?? rect.size
     }
 
+}
+
+extension CGSize {
+    fileprivate var square: CGFloat { width * height }
 }

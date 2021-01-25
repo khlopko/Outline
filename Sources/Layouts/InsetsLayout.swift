@@ -29,3 +29,11 @@ public struct InsetLayout : Layout {
     }
 
 }
+
+extension Layout {
+
+    public func inset(by insets: Insets) -> Layout { InsetLayout(child: self, insets: insets) }
+
+    public func insetBy(dx: CGFloat, dy: CGFloat) -> Layout { InsetLayout(child: self, dx: dx, dy: dy) }
+
+}
