@@ -143,4 +143,22 @@ final class StackLayoutTests : XCTestCase {
         XCTAssertEqual(s3.rect, CGRect(x: length * 2, y: 0, width: length, height: length))
     }
 
+    func testLayoutWithZeroLengths() {
+        // g
+        let elements = [Element(), Element(), Element(), Element(), Element()]
+        let heights: [CGFloat] = [0, 64, 128, 256, 0]
+        var layout = StackLayout(axis: .y)
+        for (element, height) in zip(elements, heights) {
+            layout.append(element, length: height)
+        }
+        let parent = CGRect(origin: .zero, size: .init(width: 375, height: heights.reduce(0, +)))
+        // w
+        let rect = layout.layout(in: parent)
+        // t
+        XCTAssertEqual(rect, parent)
+        for (element, height) in zip(elements, heights) {
+            XCTAssertEqual(element.rect.height, height)
+        }
+    }
+
 }

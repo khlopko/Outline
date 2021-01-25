@@ -91,7 +91,7 @@ public struct StackLayout : Layout {
         crossOffset: CGFloat = 0,
         flexible: Flexible = []
     ) {
-        let child = SizeLayout(child: child, size: Size(axis: axis, length: length, crossLength: 0))
+        let child = SizeLayout(child: child, axis: axis, length: length)
         let point = Point(axis: axis, offset: offset, crossOffset: crossOffset)
         elements.append(Element(child: child, point: point, flexible: flexible))
     }
@@ -210,6 +210,17 @@ extension Point {
 
     fileprivate init(point: Point, convert: (CGFloat) -> CGFloat) {
         self.init(axis: point.axis, offset: convert(point.offset), crossOffset: convert(point.crossOffset))
+    }
+
+}
+
+extension SizeLayout {
+
+    fileprivate init(child: Child, axis: Axis, length: CGFloat) {
+        switch axis {
+        case .x: self.init(child: child, width: length, alignment: [])
+        case .y: self.init(child: child, height: length, alignment: [])
+        }
     }
 
 }

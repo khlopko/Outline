@@ -36,6 +36,16 @@ public struct SizeLayout : Layout {
         self.init(child: child, width: side, height: side, alignment: alignment)
     }
 
+    /// Initializer with `size: Size` parameter for layout with predefined size value, which depends on the layout axis.
+    ///
+    /// - Parameters:
+    ///     - child: Element to be layouted.
+    ///     - size: Axis-dependent size of the element.
+    ///     - alignment: Alignment of the element in the parent. By default it is top left corner for the origin.
+    public init(child: Child, size: Size, alignment: Alignment = []) {
+        self.init(child: child, cgSize: size.cgSize, alignment: alignment)
+    }
+
     /// Initializer with `cgSize: CGSize` parameter for layouts with predefined size value.
     ///
     /// - Parameters:
@@ -44,19 +54,6 @@ public struct SizeLayout : Layout {
     ///     - alignment: Alignment of the element in the parent. By default it is top left corner for the origin.
     public init(child: Child, cgSize: CGSize, alignment: Alignment = []) {
         self.init(child: child, width: cgSize.width, height: cgSize.height, alignment: alignment)
-    }
-
-    /// Initializer with `size: Size` parameter for layout with predefined size value, which depends on the layout axis.
-    ///
-    /// - Parameters:
-    ///     - child: Element to be layouted.
-    ///     - size: Axis-dependent size of the element.
-    ///     - alignment: Alignment of the element in the parent. By default it is top left corner for the origin.
-    public init(child: Child, size: Size, alignment: Alignment = []) {
-        let size = size.cgSize
-        let width: CGFloat? = size.width.isZero ? nil : size.width
-        let height: CGFloat? = size.height.isZero ? nil : size.height
-        self.init(child: child, widthOrNil: width, heightOrNil: height, option: nil, alignment: alignment)
     }
 
     /// - Parameters:
