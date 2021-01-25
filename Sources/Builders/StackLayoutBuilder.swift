@@ -32,7 +32,7 @@ public struct StackLayoutBuilder {
                 flexible: block.flexible)
         case let .some(length):
             return .init(
-                child: SizeLayout(child: block.child, size: .init(axis: axis, length: length, crossLength: 0)),
+                child: SizeLayout(child: block.child, axis: axis, length: length),
                 point: .init(axis: axis, offset: block.offset, crossOffset: block.crossOffset),
                 flexible: block.flexible)
         }
