@@ -36,16 +36,6 @@ public struct SizeLayout : Layout {
         self.init(child: child, width: side, height: side, alignment: alignment)
     }
 
-    /// Initializer with `size: Size` parameter for layout with predefined size value, which depends on the layout axis.
-    ///
-    /// - Parameters:
-    ///     - child: Element to be layouted.
-    ///     - size: Axis-dependent size of the element.
-    ///     - alignment: Alignment of the element in the parent. By default it is top left corner for the origin.
-    public init(child: Child, size: Size, alignment: Alignment = []) {
-        self.init(child: child, cgSize: size.cgSize, alignment: alignment)
-    }
-
     /// Initializer with `cgSize: CGSize` parameter for layouts with predefined size value.
     ///
     /// - Parameters:

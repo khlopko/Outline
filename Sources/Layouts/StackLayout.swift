@@ -221,7 +221,7 @@ extension Point {
 
 extension SizeLayout {
 
-    fileprivate init(child: Child, axis: Axis, length: CGFloat) {
+    internal init(child: Child, axis: Axis, length: CGFloat) {
         switch axis {
         case .x: self.init(child: child, width: length, alignment: [])
         case .y: self.init(child: child, height: length, alignment: [])
