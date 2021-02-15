@@ -137,10 +137,10 @@ final class StackLayoutTests : XCTestCase {
         // w
         let rect = layout.layout(in: parent)
         // t
-        XCTAssertEqual(rect, CGRect(x: 0, y: 0, width: length * 3, height: length))
+        XCTAssertEqual(rect, CGRect(x: 0, y: 0, width: 375, height: length))
         XCTAssertEqual(s1.rect, CGRect(x: 0, y: 0, width: length, height: length))
         XCTAssertEqual(s2.rect, CGRect(x: length, y: 0, width: length, height: length))
-        XCTAssertEqual(s3.rect, CGRect(x: length * 2, y: 0, width: length, height: length))
+        XCTAssertEqual(s3.rect, CGRect(x: parent.width - length, y: 0, width: length, height: length))
     }
 
     func testBuilder() {
