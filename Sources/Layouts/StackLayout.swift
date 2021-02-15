@@ -200,7 +200,15 @@ extension StackLayout {
 
         @discardableResult
         public mutating func layout(in rect: CGRect) -> CGRect {
-            child.layout(in: rect)
+            var result = child.layout(in: rect)
+            guard flexible.contains(.length) else {
+                return result
+            }
+            switch point.axis {
+            case .x: result.size.width = rect.width
+            case .y: result.size.height = rect.height
+            }
+            return result
         }
 
         public func calculateSize(in rect: CGRect) -> CGSize {
