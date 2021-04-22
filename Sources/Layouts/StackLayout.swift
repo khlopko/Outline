@@ -1,3 +1,6 @@
+//
+//  StackLayout.swift
+//
 
 import CoreGraphics
 
@@ -149,7 +152,9 @@ public struct StackLayout : Layout {
         let flexElementLength = flexLength / CGFloat(flexOffsets.count)
         var measurements = staticMeasurements
         for flexOffset in flexOffsets {
-            let estimatedElementSize = Size(axis: axis, cgSize: elements[flexOffset.index].calculateSize(in: rect))
+            let elementContainerSize = Size(axis: axis, length: flexElementLength, crossLength: rect.height)
+            let elementContainerRect = CGRect(origin: .zero, size: elementContainerSize.cgSize)
+            let estimatedElementSize = Size(axis: axis, cgSize: elements[flexOffset.index].calculateSize(in: elementContainerRect))
             let elementSize = Size(axis: axis, length: flexElementLength, crossLength: estimatedElementSize.crossLength)
             measurements.insert(Measurement(flexOffset.point, elementSize), at: flexOffset.index)
         }

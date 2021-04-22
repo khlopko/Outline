@@ -187,4 +187,81 @@ final class StackLayoutTests : XCTestCase {
         }
     }
 
+    func testLayoutWithMultilineText() {
+        // g
+        let r1e1 = Element()
+        let str = "Laurie Barth gives us a story of two experts who solve this problem in different ways, giving some insight into how to make these decisions for your team."
+        let r1e2 = TextElement(string: str)
+        let r1e3 = TextElement(string: "2d ago")
+        let r2e1 = Element()
+        let r2e2 = Element()
+        let ae1 = Element()
+        let ae2 = Element()
+        var additional: Layout {
+            ZeroLayout(child: ZLayout(children: [r2e1, r2e2]))
+        }
+        var layout = StackLayout(axis: .x) {
+            StackLayout(axis: .y) {
+                StackLayout(axis: .x) {
+                    SizeLayout(child: r1e1, side: 34)
+                        .offset(20)
+                    TextLayout(child: r1e2)
+                        .offset(10)
+                        .flexible(.length)
+                    TextLayout(child: r1e3)
+                        .offset(10)
+                }
+                additional
+            }
+            .flexible(.length)
+            SizeLayout(child: ae1, width: 64)
+                .offset(20)
+            SizeLayout(child: ae2, width: 64)
+        }
+        let parent = CGRect(origin: .zero, size: .init(width: 375 + 64 * 2, height: 64))
+        // w
+        let rect = layout.layout(in: parent)
+        // t
+        print(
+            line(es: [r1e1, r1e2, r1e3,]),
+            line(es: [r2e1, r2e2]))
+    }
+
+}
+
+func line(es: [Element]) -> String {
+    var str = ""
+    let y = es.min(by: { $0.rect.minY > $1.rect.minY })!.rect.minY
+    for _ in 0..<Int(y / 25) {
+        str += "\n"
+    }
+    let height = es.max(by: { $0.rect.height < $1.rect.height })!.rect.height
+    for i in 0..<Int(height / 5) {
+        var last: Element?
+        for e in es {
+            for _ in 0..<(Int(e.rect.minX - (last?.rect.maxX ?? 0)) / 2) {
+                str += " "
+            }
+            let draw = i < Int(e.rect.height / 5)
+            for _ in 0..<(Int(e.rect.width) / 2) {
+                str += draw ? "+" : " "
+            }
+            last = e
+        }
+        str += "\n"
+    }
+    return str
+}
+
+struct ZeroLayout : Layout {
+
+    var child: Layout
+
+    mutating func layout(in rect: CGRect) -> CGRect {
+        child.layout(in: .zero)
+        return .zero
+    }
+
+    func calculateSize(in rect: CGRect) -> CGSize { .zero }
+
 }

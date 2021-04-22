@@ -1,5 +1,5 @@
 
-import CoreGraphics
+import UIKit
 
 @testable import Outline
 
@@ -10,7 +10,14 @@ final class TextElement : Element, Outline.TextElement {
         let string: String
 
         func size(constrainedTo maxSize: CGSize, useDeviceMetrics: Bool) -> CGSize {
-            CGSize(width: string.count, height: 21)
+            let p = NSMutableParagraphStyle()
+            p.lineBreakMode = .byWordWrapping
+            let attributedString = NSAttributedString(
+                string: string,
+                attributes: [.font: UIFont.systemFont(ofSize: 14), .paragraphStyle: p])
+            let calculatedSize =  attributedString.size(constrainedTo: maxSize, useDeviceMetrics: useDeviceMetrics)
+            print(maxSize, calculatedSize, string, attributedString.size())
+            return calculatedSize
         }
 
     }
